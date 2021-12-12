@@ -1,0 +1,10 @@
+*.pyc
+*~
+__pycache__
+/myvenv
+/static
+.DS_Store
+.idea
+*.db
+.pytest_cache
+migrations
