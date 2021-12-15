@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <table class="table">
+        <thead>
+        <tr>
+            <td class="green" class="mean">Buyer</td>
+            <td class="green" class="mean">SKU</td>
+            <td class="green" class="mean">Ingredient</td>
+            <td class="green" class="mean">Regions</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="green" class="mean">
+                <table>
+                </table>
+            </td>
+            <td class="green" class="mean">
+                <table>
+
+                </table>
+            </td>
+            <td class="green" class="mean">
+                <table>
+                </table>
+            </td>
+            <td class="green" class="mean">
+                <table>
+                    <td>FirstChoice</td>
+                    <td>UnСommon</td>
+                    <td>Southwest</td>
+                </table>
+            </td>
+        </tr>
+        {% for item in ops %}
+        <tr>
+            <td nowrap class="mean">
+                <table>
+                    <tr>
+                        <td>{{ item['Buyer'] }}</td>
+                    </tr>
+                </table>
+            </td>
+            <td class="grey" class="mean">
+                <table>
+                    <tr>
+                        <td>{{ item['SKU'] }}</td>
+                    </tr>
+                </table>
+            </td>
+            <td nowrap class="mean">
+                <table>
+                    <tr>
+                        <td>{{ item['Ingredient'] }}</td>
+                    </tr>
+                </table>
+            </td>
+            <td class="grey" class="mean">
+                        {% for i in item['Regions'] %}
+
+                <table>
+                    <td>{{ item['Regions'][i] }}</td>
+                    <td>{{ item['Regions'][i] }}</td>
+                    <td>{{ item['Regions'][i] }}</td>
+                </table>
+                                            {% endfor %}
+
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

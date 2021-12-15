@@ -57,8 +57,3 @@ class OpsData(db.Model):
 
     def __repr__(self):
         return f"Id:{self.id}, Sku:{self.sku}"
-
-
-@login.user_loader
-def load_user(id):
-    return User.query.get(int(id))

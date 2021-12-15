@@ -2,7 +2,7 @@ from flask import jsonify, make_response, render_template, flash, redirect, url_
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, RegionForm
 from .models import Ops, OpsData, Region, User
 from app import app, db
 from .bussiness_logic import calculate_business_logic
@@ -20,7 +20,10 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
-        return redirect(url_for("ops_data_view"))
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('ops_data_view')
+        return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
 
@@ -57,7 +60,10 @@ def ops_data_view():
                 dictionary[reg.name].append(
                     {"sku": ops.sku, "total_units": ops.total_units}
                 )
-    return jsonify(dictionary)
+            if len(dictionary[reg.name]) == 50:
+                break
+
+    return render_template('ops_data.html', dict=dictionary)
 
 
 @app.route("/ops")
@@ -73,7 +79,8 @@ def ops():
                 "Regions": calculate_business_logic(reg_db, ops),
             }
         )
-    return jsonify(arr)
+    asd = 123
+    return render_template('ops.html', ops=arr)
 
 
 @app.route("/reload-data")
@@ -86,6 +93,17 @@ def reload_data():
         return make_response(jsonify({"messages": "Error 500"}), 500)
     else:
         return make_response(jsonify({"messages": "Success"}), 200)
+
+
+@app.route("/add-region", methods=["GET", "POST"])
+def add_region():
+    form = RegionForm()
+    if form.validate_on_submit():
+        region = Region(name=form.name.data)
+        db.session.add(region)
+        db.session.commit()
+        return redirect(url_for('ops_data_view'))
+    return render_template("region.html", form=form)
 
 
 # class PostRegion(Resource):

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <table class="table">
+        <thead>
+        <tr>
+            {% for dc in dict.keys() %}
+                <td class="green" class="mean">{{ dc }}</td>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for items in dict.values() %}
+                <td class="green" class="mean">
+                    <table>
+                        <tr>
+                                <td>SKU</td>
+                                <td>TOTAL UNITS</td>
+                        </tr>
+                    </table>
+                </td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td nowrap class="mean">
+                <table>
+                    {% for item in dict['FirstChoice'] %}
+                            <tr>
+                                <td>{{ item.sku }}</td>
+                                <td>{{ item.total_units }}</td>
+                            </tr>
+                    {% endfor %}
+                </table>
+            </td>
+            <td nowrap class="mean">
+                <table>
+                    {% for item in dict['UnСommon'] %}
+                            <tr>
+                                <td>{{ item.sku }}</td>
+                                <td>{{ item.total_units }}</td>
+                            </tr>
+                    {% endfor %}
+                </table>
+            </td>
+            <td nowrap class="mean">
+                <table>
+                    {% for item in dict['Southwest'] %}
+                            <tr>
+                                <td>{{ item.sku }}</td>
+                                <td>{{ item.total_units }}</td>
+                            </tr>
+                    {% endfor %}
+
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}
