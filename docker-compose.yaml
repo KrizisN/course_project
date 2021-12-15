@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  web:
+    build: .
+    ports:
+      - 5000:5000
+    environment:
+      - FLASK_APP=run.py
+    command: ["./wait-for-it.sh", "-t", "3000", "-h", "db", "-p", "5432", "-s", "--", "./boot.sh"]

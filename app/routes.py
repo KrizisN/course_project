@@ -79,7 +79,6 @@ def ops():
                 "Regions": calculate_business_logic(reg_db, ops),
             }
         )
-    asd = 123
     return render_template('ops.html', ops=arr)
 
 
@@ -92,7 +91,7 @@ def reload_data():
     except Exception:
         return make_response(jsonify({"messages": "Error 500"}), 500)
     else:
-        return make_response(jsonify({"messages": "Success"}), 200)
+        return redirect(url_for("ops_data_view"))
 
 
 @app.route("/add-region", methods=["GET", "POST"])
