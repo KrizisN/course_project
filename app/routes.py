@@ -103,16 +103,3 @@ def add_region():
         db.session.commit()
         return redirect(url_for('ops_data_view'))
     return render_template("region.html", form=form)
-
-
-# class PostRegion(Resource):
-#     def post(self):
-#         try:
-#             data = request.get_json(force=True)
-#             name_of_region = data["name"]
-#             obj = Region(name=name_of_region)
-#             db.session.add(obj)
-#             db.session.commit()
-#             return make_response(jsonify({"msg":"success"}), 200)
-#         except Exception:
-#             return make_response(jsonify({"msg": "Error 500"}), 500)
